@@ -6,8 +6,8 @@ USE `ims` ;
 
 CREATE TABLE IF NOT EXISTS `ims`.`customers` (
 `CustomerID` INT AUTO_INCREMENT PRIMARY KEY,
-`first_name` VARCHAR(40),
-`surname` VARCHAR(40),
+`first_name` VARCHAR(40) NOT NULL,
+`surname` VARCHAR(40) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `ims`.`orders`(
@@ -16,9 +16,9 @@ CREATE TABLE IF NOT EXISTS `ims`.`orders`(
  FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
 );
 
-CREATE TABLE IF NOT EXISTS `ims`.`item`(
+CREATE TABLE IF NOT EXISTS `ims`.`items`(
 `ItemID` INT AUTO_INCREMENT PRIMARY KEY, 
-`ItemName` VARCHAR(40), 
+`ItemName` VARCHAR(40) NOT NULL, 
 `StockAmount` INT NOT NULL, 
 `Price` DOUBLE NOT NULL
 );
