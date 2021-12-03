@@ -11,10 +11,10 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.qa.ims.persistence.domain.Items;
+import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.utils.DBUtils;
 
-public class ItemsDAO implements Dao<Items> {
+public class ItemsDAO implements Dao<Item> {
 
     public static final Logger LOGGER = LogManager.getLogger();
 
