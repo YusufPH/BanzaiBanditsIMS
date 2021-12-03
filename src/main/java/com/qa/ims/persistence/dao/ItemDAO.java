@@ -11,20 +11,20 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.qa.ims.persistence.domain.Item;
+import com.qa.ims.persistence.domain.Items;
 import com.qa.ims.utils.DBUtils;
 
-public class ItemsDAO implements Dao<Item> {
+public class ItemsDAO implements Dao<Items> {
 
     public static final Logger LOGGER = LogManager.getLogger();
 
     @Override
     public Items modelFromResultSet(ResultSet resultSet) throws SQLException {
-        Int itemID = resultSet.getInt("ItemID");
+        Long itemID = resultSet.getLong("ItemID");
         String itemName = resultSet.getString("ItemName");
-        Double stockAmount = resultSet.getDouble("StockAmount");
+        int stockAmount = resultSet.getInt("StockAmount");
         Double price = resultSet.getDouble("Price");
-        return new Item(itemID, itemName, stockAmount, price);
+        return new Items(itemID, itemName, stockAmount, price);
     }
 
     /**
@@ -65,15 +65,15 @@ public class ItemsDAO implements Dao<Item> {
     /**
      * Creates a customer in the database
      *
-     * @param customer - takes in a customer object. id will be ignored
+     * @param - takes in a customer object. id will be ignored
      */
     @Override
     public Items create(Items items) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              PreparedStatement statement = connection
                      .prepareStatement("INSERT INTO items(order_item, price) VALUES (?, ?)");) {
-            statement.setString(1, items.getOrderItem());
-            statement.setDouble(2, items.getPrice());
+            statement.setString(1, items.getName());
+            statement.setDouble(2, items.getValue());
             statement.executeUpdate();
             return readLatest();
         } catch (Exception e) {
@@ -102,7 +102,7 @@ public class ItemsDAO implements Dao<Item> {
     /**
      * Updates a customer in the database
      *
-     * @param customer - takes in a customer object, the id field will be used to
+     * @param - takes in a customer object, the id field will be used to
      *                 update that customer in the database
      * @return
      */
@@ -111,11 +111,11 @@ public class ItemsDAO implements Dao<Item> {
         try (Connection connection = DBUtils.getInstance().getConnection();
              PreparedStatement statement = connection
                      .prepareStatement("UPDATE items SET order_item = ?, price = ? WHERE ItemID = ?");) {
-            statement.setString(1, items.getOrderItem());
-            statement.setDouble(2, items.getPrice());
-            statement.setLong(3, items.getItemID());
+            statement.setString(1, items.getName());
+            statement.setDouble(2, items.getValue());
+            statement.setLong(3, items.getId());
             statement.executeUpdate();
-            return read(items.getItemID());
+            return read(items.getId());
         } catch (Exception e) {
             LOGGER.debug(e);
             LOGGER.error(e.getMessage());
@@ -126,7 +126,7 @@ public class ItemsDAO implements Dao<Item> {
     /**
      * Deletes a customer in the database
      *
-     * @param id - id of the customer
+     * @param - id of the customer
      */
     @Override
     public int delete(long itemID) {

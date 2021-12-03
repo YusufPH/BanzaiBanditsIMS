@@ -2,7 +2,7 @@ package com.qa.ims.persistence.domain;
 
 import java.util.List;
 
-public class Order {
+public class Orders {
 	private Long order_id;
 	private Long customer_id;
 	private Long order_item_id;
@@ -10,25 +10,25 @@ public class Order {
 	private List<Item> items;
 	
 
-	public Order(Long order_id, Long order_item_id, Long item_id, List<Item> items) {
+	public Orders(Long order_id, Long order_item_id, Long item_id, List<Item> items) {
 		super();
 		this.order_id = order_id;
 		this.order_item_id = order_item_id;
 		this.item_id = item_id;
 		this.items = items;
 	}
-	public Order(Long order_id, Long item_id, List<Item> items) {
+	public Orders(Long order_id, Long item_id, List<Item> items) {
 		super();
 		this.order_id = order_id;
 		this.item_id = item_id;
 		this.items = items;
 	}
-	public Order(Long order_id, Long customer_id) {
+	public Orders(Long order_id, Long customer_id) {
 		super();
 		this.order_id = order_id;
 		this.customer_id = customer_id;
 	}
-	public Order(Long customer_id) {
+	public Orders(Long customer_id) {
 		super();
 		this.customer_id = customer_id;
 	}

@@ -30,7 +30,7 @@ public class OrderDAO implements Dao<Orders> {
 
     public Double getCost(Long itemId) {
         ItemsDAO items = new ItemsDAO();
-        Double cost = items.read(itemId).getPrice();
+        Double cost = items.read(itemId).getValue();
         return cost;
     }
     /**

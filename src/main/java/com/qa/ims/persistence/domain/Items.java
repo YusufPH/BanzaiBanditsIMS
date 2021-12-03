@@ -1,24 +1,22 @@
 package com.qa.ims.persistence.domain;
 
-public class Item {
+public class Items {
 	
 	private Long id;
 	private String name;
-	private double value;
+	private Double value;
     private int stock;
 	
 	// constructors
 	
-	public Item(String name, int stock, double value) {
-		this();
+	public Items(String name, int stock, Double value) {
 		this.name = name;
         this.stock = stock;
 		this.value = value;
 	}
 	
-	public Item(long id, String name, int stock, double value) {
+	public Items(long id, String name, int stock, Double value) {
 		this(name, stock, value);
-        
 		this.id = id;
 	}
 
@@ -64,7 +62,7 @@ public class Item {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Item other = (Item) obj;
+		Items other = (Items) obj;
 		if (id != other.id)
 			return false;
 		if (name == null) {
@@ -75,14 +73,14 @@ public class Item {
 		if (value == null) {
 			if (other.value != null)
 				return false;
-		} else if (!value.equals(other.value) || !stock.equals(other.stock))
+		} else if (!value.equals(other.value) || stock != other.stock)
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "[id:" + id + " name:" + name + " stock: " + stock.toString() + " value:" + value.toString() + "]";
+		return "[id:" + id + " name:" + name + " stock: " + String.valueOf(stock) + " value:" + value.toString() + "]";
 	}
 
 }

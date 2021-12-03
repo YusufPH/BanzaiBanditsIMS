@@ -12,14 +12,14 @@ import com.qa.ims.persistence.dao.ItemDAO;
 import com.qa.ims.persistence.dao.OrderDAO;
 import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.Item;
-import com.qa.ims.persistence.domain.Order;
+import com.qa.ims.persistence.domain.Orders;
 import com.qa.ims.utils.Utils;
 
 /**
  * Takes in order details for CRUD functionality
  *
  */
-public class OrderController implements CrudController<Order> {
+public class OrderController implements CrudController<Orders> {
 
     public static final Logger LOGGER = LogManager.getLogger();
 
@@ -42,9 +42,9 @@ public class OrderController implements CrudController<Order> {
 	 * @return List of Orders
 	 */
 	@Override
-	public List<Order> readAll() {
-		List<Order> orders = orderDAO.readAll();
-		for (Order order : orders) {
+	public List<Orders> readAll() {
+		List<Orders> orders = orderDAO.readAll();
+		for (Orders order : orders) {
 			LOGGER.info(order.toString());
 		}
 		return orders;
@@ -56,7 +56,7 @@ public class OrderController implements CrudController<Order> {
 	 * @return a new Order
 	 */
 	@Override
-	public Order create() {
+	public Orders create() {
 		
 		Customer customer = null;
 		
@@ -91,7 +91,7 @@ public class OrderController implements CrudController<Order> {
 			
 		} while (itemMap.size() != itemArray.length); // continues until all items in list are added
 		
-		Order order = orderDAO.create(new Order(customer, itemMap));
+		Orders order = orderDAO.create(new Orders(customer, itemMap));
 		LOGGER.info("Order created");
 		return order;
 	}
@@ -102,10 +102,10 @@ public class OrderController implements CrudController<Order> {
 	 * @return The updated Order
 	 */
 	@Override
-	public Order update() {
+	public Orders update() {
 		
 		Long orderId = null;
-		Order order = null;
+		Orders order = null;
 		
 		do {	
 			LOGGER.info("Please enter the id of the order you would like to update");
@@ -166,7 +166,7 @@ public class OrderController implements CrudController<Order> {
 					customerId = utils.getLong();
 					customer = customerDAO.readCustomer(customerId);
 				} while (customer == null);	
-				orderDAO.update(new Order(orderId, customer));
+				orderDAO.update(new Orders(orderId, customer));
 				LOGGER.info("Customer updated");
 				break;
 				

@@ -5,22 +5,22 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.qa.ims.persistence.dao.ItemDAO;
-import com.qa.ims.persistence.domain.Item;
+import com.qa.ims.persistence.dao.ItemsDAO;
+import com.qa.ims.persistence.domain.Items;
 import com.qa.ims.utils.Utils;
 
 /**
  * Takes in item details for CRUD functionality
  *
  */
-public class ItemController implements CrudController<Item> {
+public class ItemController implements CrudController<Items> {
     
     public static final Logger LOGGER = LogManager.getLogger();
 
-	private ItemDAO itemDAO;
+	private ItemsDAO itemDAO;
 	private Utils utils;
 
-	public ItemController(ItemDAO itemDAO, Utils utils) {
+	public ItemController(ItemsDAO itemDAO, Utils utils) {
     
 		super();
 		this.itemDAO = itemDAO;
@@ -33,9 +33,9 @@ public class ItemController implements CrudController<Item> {
 	 * @return List of Items
 	 */
 	@Override
-	public List<Item> readAll() {
-		List<Item> items = itemDAO.readAll();
-		for (Item item : items) {
+	public List<Items> readAll() {
+		List<Items> items = itemDAO.readAll();
+		for (Items item : items) {
 			LOGGER.info(item.toString());
 		}
 		return items;
@@ -47,12 +47,14 @@ public class ItemController implements CrudController<Item> {
 	 * @return a new Item
 	 */
 	@Override
-	public Item create() {
+	public Items create() {
 		LOGGER.info("Please enter a name");
 		String name = utils.getString();
 		LOGGER.info("Please enter a value");
 		Double value = utils.getDouble();
-		Item item = itemDAO.create(new Item(name, value));
+		LOGGER.info("Please enter a stock amount");
+		int stock = utils.getDouble().intValue();
+		Items item = itemDAO.create(new Items(name, stock, value));
 		LOGGER.info("Item created");
 		return item;
 	}
@@ -63,14 +65,16 @@ public class ItemController implements CrudController<Item> {
 	 * @return The updated Item
 	 */
 	@Override
-	public Item update() {
+	public Items update() {
 		LOGGER.info("Please enter the id of the item you would like to update");
 		Long id = utils.getLong();
 		LOGGER.info("Please enter a name");
 		String name = utils.getString();
 		LOGGER.info("Please enter a value");
 		Double value = utils.getDouble();
-		Item item = itemDAO.update(new Item(id, name, value));
+		LOGGER.info("Please enter a stock amount");
+		int stock = utils.getDouble().intValue();
+		Items item = itemDAO.update(new Items(id, name, stock, value));
 		LOGGER.info("Item Updated");
 		return item;
 	}
