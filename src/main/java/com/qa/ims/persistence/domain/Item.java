@@ -1,8 +1,5 @@
 package com.qa.ims.persistence.domain;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 public class Item {
 	
 	private Long id;
