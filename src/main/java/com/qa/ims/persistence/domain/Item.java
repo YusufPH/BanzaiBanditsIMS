@@ -5,17 +5,20 @@ public class Item {
 	private Long id;
 	private String name;
 	private double value;
+    private int stock;
 	
 	// constructors
 	
-	public Item(String name, double value) {
+	public Item(String name, int stock, double value) {
 		this();
 		this.name = name;
+        this.stock = stock;
 		this.value = value;
 	}
 	
-	public Item(long id, String name, double value) {
-		this(name, value);
+	public Item(long id, String name, int stock, double value) {
+		this(name, stock, value);
+        
 		this.id = id;
 	}
 
@@ -37,6 +40,14 @@ public class Item {
 		this.name = name;
 	}
 	
+    public int getStock() {
+		return stock;
+	}
+
+	public void setStock(double value) {
+		this.stock = stock;
+	}
+
 	public double getValue() {
 		return value;
 	}
@@ -64,14 +75,14 @@ public class Item {
 		if (value == null) {
 			if (other.value != null)
 				return false;
-		} else if (!value.equals(other.value))
+		} else if (!value.equals(other.value) || !stock.equals(other.stock))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "[id:" + id + " name:" + name + " value:" + value.toString() + "]";
+		return "[id:" + id + " name:" + name + " stock: " + stock.toString() + " value:" + value.toString() + "]";
 	}
 
 }
